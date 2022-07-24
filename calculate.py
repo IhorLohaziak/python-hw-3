@@ -26,22 +26,24 @@
 
 
 
-# Додав ще цілочисельне ділення.
-# python calculate.py 2+2  - цей варіант коли (лів.операнд,оператор, прав.операнд - розміщені за 1 індексом) не має пропуску між лівим операндом,оператором і правим операндом у мене не працює, поки що(((((
-#  Як розділити, у мене поки що є ідея "2+2" наприклад розбити на три частини по індексу, тоді буде працювати, але якщо чисел буде більше і відповідно індесів, тоді помилка(((
-
-
 import sys
-left_operand = sys.argv[1]
-right_operand = sys.argv[3]
-operation = sys.argv[2]
-def calculate(left_operand, right_operand, operation):
+operation = []
+allowed_operations = ['+', '-', '/', '*', '%', '//' ] # Додав ще цілочисельне ділення
+if len(sys.argv) == 2:                        # щоб працював варіант "python calculate.py 2+2", в якому лівий операнд,оператор і правий операнд становлять один аргумент, потрібно відсортувати і розділити методом split
+        for a in allowed_operations:
+            separator = sys.argv[1].split(a)
+            if len(separator) == 2:
+                operation = a
+                left_operand = separator[0]
+                right_operand = separator[1]
+                break
+elif len(sys.argv) == 4:   # для варіанту python calculate.py 2 + 2, де 4 аргументи, по суті 3=)
+	    left_operand = sys.argv[1]
+	    right_operand = sys.argv[3]
+	    operation = sys.argv[2]
+def calc(left_operand, right_operand, operation):
     left_operand = int(left_operand)
     right_operand = int(right_operand)
-    allowed_operations = ['+', '-', '/', '*', '%', '//' ]
-    if len(sys.argv) != 4:
-        print('Arg len should be 4')
-        sys.exit()
     if operation not in allowed_operations:
         print('Operation is not allowed')
         sys.exit()
@@ -72,8 +74,9 @@ def calculate(left_operand, right_operand, operation):
         integer_division = '{} / {} = '.format(left_operand, right_operand)
         print(left_operand // right_operand)
         sys.exit()
-calculate(left_operand, right_operand, operation)
-# Додав ще цілочисельне ділення
+calc(left_operand, right_operand, operation)
+
+#Потребує вдосконалення, тому що програма видасть помилку, на етапі перетворення їх в integer (45 рядок), якщо ми будемо використовувати данні які не трансформуються в число, наприклад літери.  
 
 
 
@@ -82,170 +85,3 @@ calculate(left_operand, right_operand, operation)
 
 
 
-
-
-
-
-# import sys
-
-
-
-# if len(sys.argv) != 4:
-#     print('Arg len should be 4')
-#     sys.exit()
-# left_operand = sys.argv[1]
-# right_operand = sys.argv[3]
-# operation = sys.argv[2]
-# allowed_operations = ['+', '-', '/', '*', '%']
-# if operation not in allowed_operations:
-#     print('Operation is not allowed')
-#     sys.exit()
-# try:
-#     left_operand = int(left_operand)
-#     right_operand = int(right_operand)
-# except ValueError:
-#     print('Left and Right operands must be int')
-#     sys.exit()
-# if operation == '/' and right_operand == 0:
-#     print('Division by zero is not allowed')
-#     sys.exit()
-
-## Option 1
-# if operation == '*':
-#     print(left_operand * right_operand)
-# elif operation == '+':
-#     print(left_operand + right_operand)
-
-## Option 2
-# match operation:
-#     case '*':
-#         print(left_operand * right_operand)
-#     case '+':
-#         print(left_operand + right_operand)
-
-
-## Option 3
-# print(eval(f'{left_operand}{operation}{right_operand}'))
-
-
-# def perform_operation(left, right, operation)
-#     return ()
-
-
-
-# # import sys
-# # left_operand1 = sys.argv[1:]
-# left_operand1 = input()
-# # right_operand1 = sys.argv[3:]
-# # left_operand1 = input()
-# # operation = sys.argv[2:]
-# # operation = input()
-# left_ope = left_operand1[0]
-# oper = left_operand1[1]
-# right_ope = left_operand1[2]
-# left_operand = int(left_ope)
-# right_operand = int(right_ope)
-# operation = str(oper)
-# def calc(left_oper, right_ope, oper):
-#     if len(sys.argv) != 4:
-#         print('Arg len should be 4')
-#         sys.exit()
-#     allowed_operations = ['+', '-', '/', '*', '%' ]
-#     if operation not in allowed_operations:
-#         print('Operation is not allowed')
-#         sys.exit()
-#     if operation == '/' and right_operand == 0:
-#         print('Division by zero is not allowed')
-#         sys.exit()
-#     elif operation == '+':
-#         print(left_operand + right_operand)
-#         sys.exit()
-#     elif operation == '-':
-#         print(left_operand - right_operand)
-#         sys.exit()
-#     elif operation == '/':
-#         print(left_operand - right_operand)
-#         sys.exit()
-#     elif operation == '*':
-#         print(left_operand * right_operand)
-#         sys.exit()
-#     elif operation == '%':
-#         print(left_operand % right_operand)
-#         sys.exit()
-# calc(left_oper, right_ope, oper)
-
-
-# except ValueError:
-#     print('Left and Right operands must be int')
-#     sys.exit()
-
-# if operation == '/' and right_operand == 0:
-#     print('Division by zero is not allowed')
-#     sys.exit()
-
-# # Option 1
-# if operation == '*':
-#     print(left_operand * right_operand)
-# elif operation == '+':
-#     print(left_operand + right_operand)
-
-# # Option 2
-# match operation:
-#     case '*':
-#         print(left_operand * right_operand)
-#     case '+':
-#         print(left_operand + right_operand)
-
-
-# # Option 3
-# print(eval(f'{left_operand}{operation}{right_operand}'))
-
-
-# def perform_operation(left, right, operation)
-#     return ()
-
-
-
-
-# import sys
-# left_operand = int(sys.argv[1])
-# right_operand = int(sys.argv[3])
-# operation = sys.argv[2]
-# def calc(left_operand, right_operand, operation):
-#     if len(sys.argv) != 4:
-#         print('Arg len should be 4')
-#         sys.exit()
-#     allowed_operations = ['+', '-', '/', '*', '%', '//' ]
-#     if operation not in allowed_operations:
-#         print('Operation is not allowed')
-#         sys.exit()
-#     if operation == '/' and right_operand == 0:
-#         print('Division by zero is not allowed')
-#         sys.exit()
-#     elif operation == '+':
-#         print(left_operand + right_operand)
-#         sys.exit()
-#     elif operation == '-':
-#         print(left_operand - right_operand)
-#         sys.exit()
-#     elif operation == '/':
-#         print(left_operand - right_operand)
-#         sys.exit()
-#     elif operation == '*':
-#         print(left_operand * right_operand)
-#         sys.exit()
-#     elif operation == '%':
-#         print(left_operand % right_operand)
-#         sys.exit()
-#     elif operation == '//':
-#         print(left_operand // right_operand)
-#         sys.exit()
-#     def again():
-#         print('Do you want to calculate again? Please type Y for YES or N for NO.')
-#         if calc_again.upper() == 'Y':
-#             calculate()
-#         elif calc_again.upper() == 'N':
-#             print('See you later.')
-#         else:
-#             again()
-# calc(left_operand, right_operand, operation)
