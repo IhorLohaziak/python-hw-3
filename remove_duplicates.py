@@ -13,15 +13,14 @@
 
 
 # 1) Перебором і фіксацією першого входження до нового списку ігноруючи решту входженнь
-
-array = [1,1,1,2,2,3,3,4]
+import sys
 def remove_duplicates(array):
     arrayNew = []
     for i in array:
         if i not in arrayNew:
             arrayNew.append(i)
-    print(arrayNew)
-remove_duplicates(array)
+    return arrayNew
+
 
 
 # 2) Через модуль collections.OrderedDict.fromkeys().
